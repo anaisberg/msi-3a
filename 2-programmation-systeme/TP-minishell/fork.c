@@ -25,30 +25,20 @@ char takeInput(void)
     return *input;
 }
 
-void getProcess() {
+void execCmd(char path, char *tab[]) {
     pid_t pid;
     pid = fork();
     
     if (pid == -1) {
         perror("erreur fork");
-        exit(EXIT_FAILURE);
+        exit(1);
     }
-	if (pid == 0) { 
-        // Processus fils
-        printf("Child process with pid: %d ; Parent pid: %d\n",
-            getpid(),
-            getppid()
-        );
+	else if (pid == 0) { 
+        execv(path, tab);
 	} else {
     	while (pid != wait(0));
-        //nProcessus pere 
-        printf("Parent process with pid: %d ; Child pid: %d\n",
-            getpid(),
-            pid
-        );
     }
 
-    _exit(EXIT_SUCCESS);
 }
 
 int main(int argc, char *argv[])
@@ -68,17 +58,18 @@ int main(int argc, char *argv[])
     
         if(choice == 99) {
             printf("\n");
-            getProcess();
+            execv("/usr/bin/top", ["top"]);
             printf("\n\n");
         } else if(choice == 100) {
             printf("\n\n ... quitting \n\n");
+            exit(0);
         } else if(choice == 97) {
             printf("\n");
-            system("date");
+            execCmd("usr/bin/date", ["date", "+%Hh%M"]);
             printf("\n\n");
         } else if(choice == 98) {
             printf("\n");
-            system("uname -a");
+            execv("/usr/bin/uname", ["uname", "-a"]);
             printf("\n\n");
         } else {
             printf("\n\nthis option is not available \n\n");
