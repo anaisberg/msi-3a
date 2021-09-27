@@ -1,0 +1,43 @@
+// $Id: calcul.cup 505 2017-09-25 12:44:47Z coelho $
+
+import java_cup.runtime.*;
+import java.util.*;
+import java.io.*;
+
+parser code {:
+  public static void main(String args[]) throws Exception {
+    new Parser(new Lexer(new InputStreamReader(System.in))).parse();
+  }
+:}
+
+// definition des token
+terminal TK_PLUS, TK_DONE;
+terminal Double TK_VAL; 
+
+// definition des etats intermediaires
+non terminal commandes, commande;
+non terminal Double expression;
+
+// associativite et priorite des operateurs
+precedence left TK_PLUS;
+
+// objectif
+start with commandes;
+
+commandes ::=
+    commande
+  | commandes commande
+;
+
+commande ::=
+    expression:e // expression seule, affichage
+	{: System.out.println("# " + e); :}
+    TK_DONE
+;
+
+expression ::=
+    expression:e1 TK_PLUS expression:e2 // effectue l'addition
+	{: RESULT = e1 + e2 ; :}
+  | TK_VAL:v // valeur
+	{: RESULT = v; :}
+;
