@@ -11,7 +11,7 @@ parser code {:
 :}
 
 // definition des token
-terminal TK_PLUS, TK_DONE;
+terminal TK_PLUS, TK_MOINS, TK_DONE;
 terminal Double TK_VAL; 
 
 // definition des etats intermediaires
@@ -38,6 +38,8 @@ commande ::=
 expression ::=
     expression:e1 TK_PLUS expression:e2 // effectue l'addition
 	{: RESULT = e1 + e2 ; :}
+  | expression:e2 TK_MOINS expression:e2 // effectue la soustraction
+	{: RESULT = e1 - e2 ; :}
   | TK_VAL:v // valeur
 	{: RESULT = v; :}
 ;

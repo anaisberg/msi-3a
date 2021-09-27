@@ -19,6 +19,7 @@ import java.io.*;
 %%
 [0-9]+	{ return new Symbol(sym.TK_VAL, new Double(yytext())); }
 "+"	{ return new Symbol(sym.TK_PLUS); }
+"-"	{ return new Symbol(sym.TK_MOINS); }
 (\n|\r|\r\n)	{ return new Symbol(sym.TK_DONE); }
 [\ \t\f] { /* ignore espaces et assimiles. */ }
 .	{ System.err.println("unexpected char '" + yytext() +
