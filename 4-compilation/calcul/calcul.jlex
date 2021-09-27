@@ -32,8 +32,16 @@ import java.io.*;
 "^" { return new Symbol(sym.TK_POW); }
 "pi" { return new Symbol(sym.TK_PI); }
 "e" { return new Symbol(sym.TK_E); }
+"true" { return new Symbol(sym.TK_TRUE); }
+"false" { return new Symbol(sym.TK_FALSE); }
+"et" { return new Symbol(sym.TK_ET); }
+"ou" { return new Symbol(sym.TK_OU); }
+"<" { return new Symbol(sym.TK_STRICT_INF); }
+">" { return new Symbol(sym.TK_STRICT_SUP); }
+"non" { return new Symbol(sym.TK_NON); }
+"quit" { return new Symbol(sym.TK_STOP);  }
 "=" { return new Symbol(sym.TK_ASSIGN); }
-[a-z|A-Z]+ { return new Symbol(sym.TK_VAR); }
+[a-z|A-Z]+ { return new Symbol(sym.TK_VAR, yytext()); }
 (\n|\r|\r\n)	{ return new Symbol(sym.TK_DONE); }
 [\ \t\f] { /* ignore espaces et assimiles. */ }
 .	{ System.err.println("unexpected char '" + yytext() +

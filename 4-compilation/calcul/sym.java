@@ -10,22 +10,30 @@ public class sym {
   public static final int TK_RIGHTPAR = 13;
   public static final int TK_LEFTPAR = 12;
   public static final int TK_DONE = 4;
-  public static final int TK_PI = 18;
+  public static final int TK_PI = 26;
+  public static final int TK_ET = 22;
+  public static final int TK_STOP = 18;
   public static final int TK_PLUS = 2;
   public static final int TK_FOIS = 5;
   public static final int TK_TAN = 10;
+  public static final int TK_VAR = 19;
   public static final int TK_SQRT = 9;
-  public static final int TK_VAR = 16;
+  public static final int TK_STRICT_SUP = 17;
   public static final int EOF = 0;
+  public static final int TK_TRUE = 20;
+  public static final int TK_OU = 23;
   public static final int TK_MOINS = 3;
-  public static final int TK_VAL = 17;
+  public static final int TK_VAL = 25;
   public static final int TK_SIN = 7;
   public static final int error = 1;
   public static final int TK_COS = 8;
-  public static final int TK_E = 19;
+  public static final int TK_E = 27;
+  public static final int TK_STRICT_INF = 16;
+  public static final int TK_FALSE = 21;
   public static final int TK_POW = 14;
   public static final int TK_DIVISE = 6;
   public static final int TK_ASSIGN = 15;
+  public static final int TK_NON = 24;
   public static final String[] terminalNames = new String[] {
   "EOF",
   "error",
@@ -43,7 +51,15 @@ public class sym {
   "TK_RIGHTPAR",
   "TK_POW",
   "TK_ASSIGN",
+  "TK_STRICT_INF",
+  "TK_STRICT_SUP",
+  "TK_STOP",
   "TK_VAR",
+  "TK_TRUE",
+  "TK_FALSE",
+  "TK_ET",
+  "TK_OU",
+  "TK_NON",
   "TK_VAL",
   "TK_PI",
   "TK_E"

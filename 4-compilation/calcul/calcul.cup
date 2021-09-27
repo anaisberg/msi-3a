@@ -4,23 +4,24 @@ import java_cup.runtime.*;
 import java.util.*;
 import java.io.*;
 
+action code {:
+  public Map<String, Double> variables = new TreeMap<String, Double>();
+  // utiliser avec put et get
+:};
+
 parser code {:
   public static void main(String args[]) throws Exception {
     new Parser(new Lexer(new InputStreamReader(System.in))).parse();
   }
 :}
 
-action code {:
-  public Map<String, Double> variables = new TreeMap<String, Double>();
-  // utiliser avec put et get
-:}
-
 // definition des token
 terminal TK_PLUS, TK_MOINS, TK_DONE;
 terminal TK_FOIS, TK_DIVISE;
 terminal TK_SIN, TK_COS, TK_SQRT,  TK_TAN, TK_LOG;
-terminal TK_LEFTPAR, TK_RIGHTPAR, TK_POW, TK_ASSIGN;
-terminal String TK_VAR;
+terminal TK_LEFTPAR, TK_RIGHTPAR, TK_POW, TK_ASSIGN, TK_STRICT_INF, TK_STRICT_SUP;
+terminal TK_STOP;
+terminal String TK_VAR, TK_TRUE, TK_FALSE, TK_ET, TK_OU, TK_NON;
 terminal Double TK_VAL, TK_PI, TK_E; 
 
 // definition des etats intermediaires
@@ -30,7 +31,8 @@ non terminal Double expression;
 // associativite et priorite des operateurs
 precedence left TK_PLUS, TK_MOINS;
 precedence left TK_FOIS, TK_DIVISE, TK_POW;
-precedence right TK_SIN, TK_COS, TK_TAN, TK_SQRT, TK_LOG;
+precedence left TK_OU, TK_ET, TK_STRICT_INF, TK_STRICT_SUP;
+precedence right TK_SIN, TK_COS, TK_TAN, TK_SQRT, TK_LOG, TK_NON;
 precedence left TK_ASSIGN;
 
 // objectif
@@ -78,8 +80,30 @@ expression ::=
 	{: RESULT = Math.E; :}
   | TK_VAL:v // valeur
 	{: RESULT = v; :}
+  | TK_TRUE:v // true
+	{: RESULT = 1.0; :}
+  | TK_FALSE:v // false
+	{: RESULT = 0.0; :}
+  | expression:a TK_OU expression:b // ou logique
+  {: RESULT = a + b - a*b ; :}
+  | expression:a TK_ET expression:b // et logique
+  {: RESULT = a*b ; :}
+  | TK_NON expression:b // ou logique
+  {: RESULT = 1.0 - b; :}
+  | expression:a TK_STRICT_INF expression:b // et logique
+  {: RESULT = (a < b ? 1.0 : 0.0) ; :}
+  | expression:a TK_STRICT_SUP expression:b // et logique
+  {: RESULT = (a > b ? 1.0 : 0.0) ; :}
+  | TK_STOP // true
+	{: System.exit(0); :}
   | TK_VAR:k TK_ASSIGN expression:v // ajoute une variable en mémoire
 	{: RESULT = variables.put(k, v); :}
+  | TK_VAL:v TK_VAR:a // multiplication sans *
+	{: RESULT = v * variables.get(a); :}
+  | TK_VAL:v TK_PI // multiplication sans *
+	{: RESULT = v * Math.PI ;:}
+  | TK_VAL:v TK_PI TK_VAR:a // multiplication sans *
+	{: RESULT = v * Math.PI * variables.get(a); :}
   | TK_VAR:key // récupère la valeur d'une variable
-	{: RESULT = (variables.get(key) ? variables.get(key) : variables.put(key, 0.0)) ; :}
+	{: RESULT = (variables.containsKey(key) ? variables.get(key) : null ) ; :}
 ;
