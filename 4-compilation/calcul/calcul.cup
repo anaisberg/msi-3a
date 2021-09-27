@@ -10,12 +10,18 @@ parser code {:
   }
 :}
 
+action code {:
+  public Map<String, Double> variables = new TreeMap<String, Double>();
+  // utiliser avec put et get
+:}
+
 // definition des token
 terminal TK_PLUS, TK_MOINS, TK_DONE;
 terminal TK_FOIS, TK_DIVISE;
-terminal TK_SIN, TK_COS;
-terminal TK_UNAIRE, TK_LEFTPAR, TK_RIGHTPAR;
-terminal Double TK_VAL; 
+terminal TK_SIN, TK_COS, TK_SQRT,  TK_TAN, TK_LOG;
+terminal TK_LEFTPAR, TK_RIGHTPAR, TK_POW, TK_ASSIGN;
+terminal String TK_VAR;
+terminal Double TK_VAL, TK_PI, TK_E; 
 
 // definition des etats intermediaires
 non terminal commandes, commande;
@@ -23,9 +29,9 @@ non terminal Double expression;
 
 // associativite et priorite des operateurs
 precedence left TK_PLUS, TK_MOINS;
-precedence left TK_FOIS, TK_DIVISE;
-precedence left TK_UNAIRE;
-precedence right TK_SIN, TK_COS;
+precedence left TK_FOIS, TK_DIVISE, TK_POW;
+precedence right TK_SIN, TK_COS, TK_TAN, TK_SQRT, TK_LOG;
+precedence left TK_ASSIGN;
 
 // objectif
 start with commandes;
@@ -58,6 +64,22 @@ expression ::=
   {: RESULT = Math.sin(e) ; :}
   | TK_COS TK_LEFTPAR expression:e TK_RIGHTPAR // calcule le cosinus
   {: RESULT = Math.cos(e) ; :}
+  | TK_TAN TK_LEFTPAR expression:e TK_RIGHTPAR // calcule la tangente
+  {: RESULT = Math.tan(e) ; :}
+  | TK_SQRT TK_LEFTPAR expression:e TK_RIGHTPAR // calcule la racine
+  {: RESULT = Math.sqrt(e) ; :}
+  | TK_LOG TK_LEFTPAR expression:e TK_RIGHTPAR // calcule le logarithme
+  {: RESULT = Math.log(e) ; :}
+  | expression:a TK_POW expression:n // calcule la puissance
+	{: RESULT = Math.pow(a,n) ; :}
+  | TK_PI:a // pi
+	{: RESULT = Math.PI; :}
+  | TK_E:a // e
+	{: RESULT = Math.E; :}
   | TK_VAL:v // valeur
 	{: RESULT = v; :}
+  | TK_VAR:k TK_ASSIGN expression:v // ajoute une variable en mémoire
+	{: RESULT = variables.put(k, v); :}
+  | TK_VAR:key // récupère la valeur d'une variable
+	{: RESULT = (variables.get(key) ? variables.get(key) : variables.put(key, 0.0)) ; :}
 ;

@@ -6,19 +6,26 @@
 /** CUP generated class containing symbol constants. */
 public class sym {
   /* terminals */
-  public static final int TK_UNAIRE = 9;
-  public static final int TK_FOIS = 5;
-  public static final int TK_VAL = 12;
-  public static final int TK_LEFTPAR = 10;
-  public static final int EOF = 0;
-  public static final int TK_DIVISE = 6;
+  public static final int TK_LOG = 11;
+  public static final int TK_RIGHTPAR = 13;
+  public static final int TK_LEFTPAR = 12;
   public static final int TK_DONE = 4;
-  public static final int TK_RIGHTPAR = 11;
-  public static final int TK_MOINS = 3;
-  public static final int error = 1;
+  public static final int TK_PI = 18;
   public static final int TK_PLUS = 2;
+  public static final int TK_FOIS = 5;
+  public static final int TK_TAN = 10;
+  public static final int TK_SQRT = 9;
+  public static final int TK_VAR = 16;
+  public static final int EOF = 0;
+  public static final int TK_MOINS = 3;
+  public static final int TK_VAL = 17;
   public static final int TK_SIN = 7;
+  public static final int error = 1;
   public static final int TK_COS = 8;
+  public static final int TK_E = 19;
+  public static final int TK_POW = 14;
+  public static final int TK_DIVISE = 6;
+  public static final int TK_ASSIGN = 15;
   public static final String[] terminalNames = new String[] {
   "EOF",
   "error",
@@ -29,10 +36,17 @@ public class sym {
   "TK_DIVISE",
   "TK_SIN",
   "TK_COS",
-  "TK_UNAIRE",
+  "TK_SQRT",
+  "TK_TAN",
+  "TK_LOG",
   "TK_LEFTPAR",
   "TK_RIGHTPAR",
-  "TK_VAL"
+  "TK_POW",
+  "TK_ASSIGN",
+  "TK_VAR",
+  "TK_VAL",
+  "TK_PI",
+  "TK_E"
   };
 }
 

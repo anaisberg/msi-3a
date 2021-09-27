@@ -26,6 +26,14 @@ import java.io.*;
 ")"	{ return new Symbol(sym.TK_RIGHTPAR); }
 "sin" { return new Symbol(sym.TK_SIN); }
 "cos" { return new Symbol(sym.TK_COS); }
+"tan" { return new Symbol(sym.TK_TAN); }
+"sqrt" { return new Symbol(sym.TK_SQRT); }
+"log" { return new Symbol(sym.TK_LOG); }
+"^" { return new Symbol(sym.TK_POW); }
+"pi" { return new Symbol(sym.TK_PI); }
+"e" { return new Symbol(sym.TK_E); }
+"=" { return new Symbol(sym.TK_ASSIGN); }
+[a-z|A-Z]+ { return new Symbol(sym.TK_VAR); }
 (\n|\r|\r\n)	{ return new Symbol(sym.TK_DONE); }
 [\ \t\f] { /* ignore espaces et assimiles. */ }
 .	{ System.err.println("unexpected char '" + yytext() +
