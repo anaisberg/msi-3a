@@ -31,9 +31,11 @@ public class Parser extends java_cup.runtime.lr_parser {
   /** Production table. */
   protected static final short _production_table[][] = 
     unpackFromStrings(new String[] {
-    "\000\007\000\002\002\004\000\002\002\003\000\002\002" +
+    "\000\016\000\002\002\004\000\002\002\003\000\002\002" +
     "\004\000\002\005\002\000\002\003\005\000\002\004\005" +
-    "\000\002\004\003" });
+    "\000\002\004\005\000\002\004\005\000\002\004\005\000" +
+    "\002\004\004\000\002\004\005\000\002\004\006\000\002" +
+    "\004\006\000\002\004\003" });
 
   /** Access to production table. */
   public short[][] production_table() {return _production_table;}
@@ -41,13 +43,39 @@ public class Parser extends java_cup.runtime.lr_parser {
   /** Parse-action table. */
   protected static final short[][] _action_table = 
     unpackFromStrings(new String[] {
-    "\000\013\000\004\006\004\001\002\000\006\004\ufffb\005" +
-    "\ufffb\001\002\000\006\002\000\006\000\001\002\000\006" +
-    "\002\015\006\004\001\002\000\006\004\010\005\ufffe\001" +
-    "\002\000\004\006\004\001\002\000\004\005\012\001\002" +
-    "\000\006\002\ufffd\006\ufffd\001\002\000\006\004\ufffc\005" +
-    "\ufffc\001\002\000\006\002\uffff\006\uffff\001\002\000\004" +
-    "\002\001\001\002" });
+    "\000\036\000\014\005\007\011\010\012\013\014\004\016" +
+    "\005\001\002\000\014\005\007\011\010\012\013\014\004" +
+    "\016\005\001\002\000\016\004\ufff4\005\ufff4\006\ufff4\007" +
+    "\ufff4\010\ufff4\015\ufff4\001\002\000\016\002\000\005\000" +
+    "\011\000\012\000\014\000\016\000\001\002\000\014\005" +
+    "\007\011\010\012\013\014\004\016\005\001\002\000\004" +
+    "\014\033\001\002\000\016\002\032\005\007\011\010\012" +
+    "\013\014\004\016\005\001\002\000\014\004\016\005\021" +
+    "\006\ufffe\007\022\010\017\001\002\000\004\014\014\001" +
+    "\002\000\014\005\007\011\010\012\013\014\004\016\005" +
+    "\001\002\000\014\004\016\005\021\007\022\010\017\015" +
+    "\020\001\002\000\014\005\007\011\010\012\013\014\004" +
+    "\016\005\001\002\000\014\005\007\011\010\012\013\014" +
+    "\004\016\005\001\002\000\016\004\ufff5\005\ufff5\006\ufff5" +
+    "\007\ufff5\010\ufff5\015\ufff5\001\002\000\014\005\007\011" +
+    "\010\012\013\014\004\016\005\001\002\000\014\005\007" +
+    "\011\010\012\013\014\004\016\005\001\002\000\016\004" +
+    "\ufffa\005\ufffa\006\ufffa\007\ufffa\010\ufffa\015\ufffa\001\002" +
+    "\000\016\004\ufffb\005\ufffb\006\ufffb\007\022\010\017\015" +
+    "\ufffb\001\002\000\016\004\ufff9\005\ufff9\006\ufff9\007\ufff9" +
+    "\010\ufff9\015\ufff9\001\002\000\016\004\ufffc\005\ufffc\006" +
+    "\ufffc\007\022\010\017\015\ufffc\001\002\000\004\006\030" +
+    "\001\002\000\016\002\ufffd\005\ufffd\011\ufffd\012\ufffd\014" +
+    "\ufffd\016\ufffd\001\002\000\016\002\uffff\005\uffff\011\uffff" +
+    "\012\uffff\014\uffff\016\uffff\001\002\000\004\002\001\001" +
+    "\002\000\014\005\007\011\010\012\013\014\004\016\005" +
+    "\001\002\000\014\004\016\005\021\007\022\010\017\015" +
+    "\035\001\002\000\016\004\ufff6\005\ufff6\006\ufff6\007\ufff6" +
+    "\010\ufff6\015\ufff6\001\002\000\016\004\ufff8\005\ufff8\006" +
+    "\ufff8\007\022\010\017\015\ufff8\001\002\000\014\004\016" +
+    "\005\021\007\022\010\017\015\040\001\002\000\016\004" +
+    "\ufff7\005\ufff7\006\ufff7\007\ufff7\010\ufff7\015\ufff7\001\002" +
+    "" });
 
   /** Access to parse-action table. */
   public short[][] action_table() {return _action_table;}
@@ -55,11 +83,18 @@ public class Parser extends java_cup.runtime.lr_parser {
   /** <code>reduce_goto</code> table. */
   protected static final short[][] _reduce_table = 
     unpackFromStrings(new String[] {
-    "\000\013\000\010\002\005\003\004\004\006\001\001\000" +
-    "\002\001\001\000\002\001\001\000\006\003\013\004\006" +
-    "\001\001\000\004\005\010\001\001\000\004\004\012\001" +
+    "\000\036\000\010\002\010\003\005\004\011\001\001\000" +
+    "\004\004\036\001\001\000\002\001\001\000\002\001\001" +
+    "\000\004\004\035\001\001\000\002\001\001\000\006\003" +
+    "\030\004\011\001\001\000\004\005\026\001\001\000\002" +
+    "\001\001\000\004\004\014\001\001\000\002\001\001\000" +
+    "\004\004\025\001\001\000\004\004\024\001\001\000\002" +
+    "\001\001\000\004\004\023\001\001\000\004\004\022\001" +
     "\001\000\002\001\001\000\002\001\001\000\002\001\001" +
-    "\000\002\001\001\000\002\001\001" });
+    "\000\002\001\001\000\002\001\001\000\002\001\001\000" +
+    "\002\001\001\000\002\001\001\000\004\004\033\001\001" +
+    "\000\002\001\001\000\002\001\001\000\002\001\001\000" +
+    "\002\001\001\000\002\001\001" });
 
   /** Access to <code>reduce_goto</code> table. */
   public short[][] reduce_table() {return _reduce_table;}
@@ -201,7 +236,100 @@ class CUP$Parser$actions {
           return CUP$Parser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 6: // expression ::= TK_VAL 
+          case 6: // expression ::= expression TK_MOINS expression 
+            {
+              Double RESULT =null;
+		int e1left = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)).left;
+		int e1right = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)).right;
+		Double e1 = (Double)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-2)).value;
+		int e2left = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).left;
+		int e2right = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).right;
+		Double e2 = (Double)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
+		 RESULT = e1 - e2 ; 
+              CUP$Parser$result = parser.getSymbolFactory().newSymbol("expression",2, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
+            }
+          return CUP$Parser$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 7: // expression ::= expression TK_FOIS expression 
+            {
+              Double RESULT =null;
+		int e1left = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)).left;
+		int e1right = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)).right;
+		Double e1 = (Double)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-2)).value;
+		int e2left = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).left;
+		int e2right = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).right;
+		Double e2 = (Double)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
+		 RESULT = e1 * e2 ; 
+              CUP$Parser$result = parser.getSymbolFactory().newSymbol("expression",2, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
+            }
+          return CUP$Parser$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 8: // expression ::= expression TK_DIVISE expression 
+            {
+              Double RESULT =null;
+		int e1left = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)).left;
+		int e1right = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)).right;
+		Double e1 = (Double)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-2)).value;
+		int e2left = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).left;
+		int e2right = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).right;
+		Double e2 = (Double)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
+		 RESULT = e1 / e2 ; 
+              CUP$Parser$result = parser.getSymbolFactory().newSymbol("expression",2, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
+            }
+          return CUP$Parser$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 9: // expression ::= TK_MOINS expression 
+            {
+              Double RESULT =null;
+		int e1left = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).left;
+		int e1right = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).right;
+		Double e1 = (Double)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
+		 RESULT = - e1 ; 
+              CUP$Parser$result = parser.getSymbolFactory().newSymbol("expression",2, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
+            }
+          return CUP$Parser$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 10: // expression ::= TK_LEFTPAR expression TK_RIGHTPAR 
+            {
+              Double RESULT =null;
+		int eleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)).left;
+		int eright = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)).right;
+		Double e = (Double)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-1)).value;
+		 RESULT = (e) ; 
+              CUP$Parser$result = parser.getSymbolFactory().newSymbol("expression",2, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
+            }
+          return CUP$Parser$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 11: // expression ::= TK_SIN TK_LEFTPAR expression TK_RIGHTPAR 
+            {
+              Double RESULT =null;
+		int eleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)).left;
+		int eright = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)).right;
+		Double e = (Double)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-1)).value;
+		 RESULT = Math.sin(e) ; 
+              CUP$Parser$result = parser.getSymbolFactory().newSymbol("expression",2, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-3)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
+            }
+          return CUP$Parser$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 12: // expression ::= TK_COS TK_LEFTPAR expression TK_RIGHTPAR 
+            {
+              Double RESULT =null;
+		int eleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)).left;
+		int eright = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)).right;
+		Double e = (Double)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-1)).value;
+		 RESULT = Math.cos(e) ; 
+              CUP$Parser$result = parser.getSymbolFactory().newSymbol("expression",2, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-3)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
+            }
+          return CUP$Parser$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 13: // expression ::= TK_VAL 
             {
               Double RESULT =null;
 		int vleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).left;

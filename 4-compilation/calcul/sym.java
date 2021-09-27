@@ -6,16 +6,32 @@
 /** CUP generated class containing symbol constants. */
 public class sym {
   /* terminals */
-  public static final int TK_PLUS = 2;
-  public static final int TK_VAL = 4;
-  public static final int TK_DONE = 3;
-  public static final int error = 1;
+  public static final int TK_UNAIRE = 9;
+  public static final int TK_FOIS = 5;
+  public static final int TK_VAL = 12;
+  public static final int TK_LEFTPAR = 10;
   public static final int EOF = 0;
+  public static final int TK_DIVISE = 6;
+  public static final int TK_DONE = 4;
+  public static final int TK_RIGHTPAR = 11;
+  public static final int TK_MOINS = 3;
+  public static final int error = 1;
+  public static final int TK_PLUS = 2;
+  public static final int TK_SIN = 7;
+  public static final int TK_COS = 8;
   public static final String[] terminalNames = new String[] {
   "EOF",
   "error",
   "TK_PLUS",
+  "TK_MOINS",
   "TK_DONE",
+  "TK_FOIS",
+  "TK_DIVISE",
+  "TK_SIN",
+  "TK_COS",
+  "TK_UNAIRE",
+  "TK_LEFTPAR",
+  "TK_RIGHTPAR",
   "TK_VAL"
   };
 }

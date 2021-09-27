@@ -12,6 +12,9 @@ parser code {:
 
 // definition des token
 terminal TK_PLUS, TK_MOINS, TK_DONE;
+terminal TK_FOIS, TK_DIVISE;
+terminal TK_SIN, TK_COS;
+terminal TK_UNAIRE, TK_LEFTPAR, TK_RIGHTPAR;
 terminal Double TK_VAL; 
 
 // definition des etats intermediaires
@@ -19,7 +22,10 @@ non terminal commandes, commande;
 non terminal Double expression;
 
 // associativite et priorite des operateurs
-precedence left TK_PLUS;
+precedence left TK_PLUS, TK_MOINS;
+precedence left TK_FOIS, TK_DIVISE;
+precedence left TK_UNAIRE;
+precedence right TK_SIN, TK_COS;
 
 // objectif
 start with commandes;
@@ -38,8 +44,20 @@ commande ::=
 expression ::=
     expression:e1 TK_PLUS expression:e2 // effectue l'addition
 	{: RESULT = e1 + e2 ; :}
-  | expression:e2 TK_MOINS expression:e2 // effectue la soustraction
+  | expression:e1 TK_MOINS expression:e2 // effectue la soustraction
 	{: RESULT = e1 - e2 ; :}
+  | expression:e1 TK_FOIS expression:e2 // effectue la multiplication
+	{: RESULT = e1 * e2 ; :}
+  | expression:e1 TK_DIVISE expression:e2 // effectue la division
+	{: RESULT = e1 / e2 ; :}
+  | TK_MOINS expression:e1 // effectue l'inversion
+	{: RESULT = - e1 ; :} // %prec TK_UNAIRE
+  | TK_LEFTPAR expression:e TK_RIGHTPAR // met une expression entre parenthèses
+	{: RESULT = (e) ; :}
+  | TK_SIN TK_LEFTPAR expression:e TK_RIGHTPAR // calcule le sinus
+  {: RESULT = Math.sin(e) ; :}
+  | TK_COS TK_LEFTPAR expression:e TK_RIGHTPAR // calcule le cosinus
+  {: RESULT = Math.cos(e) ; :}
   | TK_VAL:v // valeur
 	{: RESULT = v; :}
 ;
