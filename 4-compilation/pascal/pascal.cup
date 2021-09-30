@@ -20,11 +20,14 @@ action code {:
   }
 :}
 
-terminal TK_SEP, TK_PRINT, PLUS, SUB;
+terminal TK_SEP, TK_PRINT, PLUS, SUB, LPAR, RPAR;
 terminal Integer TK_ICNST;
 
 non terminal target;
 non terminal String program, linst, inst, print, expr;
+
+precedence left PLUS, SUB, RPAR;
+precedence right LPAR;
 
 start with target;
 
@@ -42,10 +45,11 @@ print ::= TK_PRINT expr:e
   {:  String comment = make_comm("print...");
 	    RESULT = comment + e + "\tOUT\n"; :};
 
-plus ::= expr:e1 PLUS expr:e2
-  {: RESULT = e1 + e2 ; :};
-
-sub ::= expr:e1 SUB expr:e2
-  {: RESULT = e1 - e2 ; :};
-
-expr ::= TK_ICNST:i {: RESULT = "\tPUSH\t" + i + "\n"; :};
+expr ::= TK_ICNST:i {: RESULT = "\tPUSH\t" + i + "\n"; :}
+| expr:e1 PLUS expr:e2
+  {:  RESULT = e1 + e2 + "\tADD\n"; :}
+| expr:e1 SUB expr:e2
+  {: RESULT = e1 + e2 + "\tSUB\n" ; :}
+| LPAR expr:e1 RPAR
+  {: RESULT = e1 ; :}
+;
