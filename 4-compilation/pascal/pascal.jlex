@@ -1,0 +1,19 @@
+import java_cup.runtime.Symbol;
+%%
+%class Lexer
+%line
+%column
+%cup
+%standalone
+
+ICNST = [0-9]+
+
+%%
+
+"print"		{ return new Symbol(sym.TK_PRINT);}
+";"		{ return new Symbol(sym.TK_SEP);}
+{ICNST}		{ return new Symbol(sym.TK_ICNST, new Integer(yytext())); }
+[\ \t\n\r\f]	{ }
+.		{ System.err.println("unexpected char '" + yytext() +
+				     "' line " + yyline);
+                  return new Symbol(sym.error); }

@@ -1,0 +1,49 @@
+import java_cup.runtime.*;
+import java.util.*;
+import java.io.*;
+
+parser code {:
+  public static void main(String args[]) throws Exception {
+    new Parser(new Lexer(new InputStreamReader(System.in))).parse();
+  }
+:}
+
+action code {:
+  // attributes & methods seen from actions
+
+  String make_inst(String lab, String op, String arg) {
+    return lab + "\t" + op + "\t" + arg + "\n";
+  }
+
+  String make_comm(String comment) {
+    return ";/ " + comment + "\n";
+  }
+:}
+
+terminal TK_SEP, TK_PRINT;
+terminal Integer TK_ICNST;
+
+non terminal target;
+non terminal String program, linst, inst, print, expr;
+
+start with target;
+
+target ::= program:s {: System.out.println(s); :}
+  ;
+
+program ::= linst:l {: RESULT = l + "\tSTOP\n"; :}
+  ;
+linst ::= inst:i {: RESULT = i; :}
+  | linst:l inst:i {: RESULT = l + i; :}
+  ;
+inst  ::= print:i TK_SEP {: RESULT = i; :}
+	| TK_SEP {: RESULT = ""; :}
+	;
+print ::= TK_PRINT expr:e
+        {:
+	    String comment = make_comm("print...");
+	    RESULT = comment + e + "\tOUT\n";
+	:}
+	;
+expr ::= TK_ICNST:i {: RESULT = "\tPUSH\t" + i + "\n"; :}
+	;
