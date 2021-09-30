@@ -28,22 +28,24 @@ non terminal String program, linst, inst, print, expr;
 
 start with target;
 
-target ::= program:s {: System.out.println(s); :}
-  ;
+target ::= program:s {: System.out.println(s); :};
 
-program ::= linst:l {: RESULT = l + "\tSTOP\n"; :}
-  ;
+program ::= linst:l {: RESULT = l + "\tSTOP\n"; :};
+
 linst ::= inst:i {: RESULT = i; :}
-  | linst:l inst:i {: RESULT = l + i; :}
-  ;
+  | linst:l inst:i {: RESULT = l + i; :};
+
 inst  ::= print:i TK_SEP {: RESULT = i; :}
-	| TK_SEP {: RESULT = ""; :}
-	;
+	| TK_SEP {: RESULT = ""; :};
+
 print ::= TK_PRINT expr:e
   {:  String comment = make_comm("print...");
 	    RESULT = comment + e + "\tOUT\n"; :};
 
 plus ::= expr:e1 PLUS expr:e2
   {: RESULT = e1 + e2 ; :};
+
+sub ::= expr:e1 SUB expr:e2
+  {: RESULT = e1 - e2 ; :};
 
 expr ::= TK_ICNST:i {: RESULT = "\tPUSH\t" + i + "\n"; :};

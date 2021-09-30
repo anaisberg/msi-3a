@@ -12,6 +12,7 @@ ICNST = [0-9]+
 
 "print"		{ return new Symbol(sym.TK_PRINT);}
 "plus" { return new Symbol(sym.PLUS);}
+"sub" { return new Symbol(sym.SUB);}
 ";"		{ return new Symbol(sym.TK_SEP);}
 
 {ICNST}		{ return new Symbol(sym.TK_ICNST, new Integer(yytext())); }
