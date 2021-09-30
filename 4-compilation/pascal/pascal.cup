@@ -20,7 +20,7 @@ action code {:
   }
 :}
 
-terminal TK_SEP, TK_PRINT;
+terminal TK_SEP, TK_PRINT, PLUS, SUB;
 terminal Integer TK_ICNST;
 
 non terminal target;
@@ -40,10 +40,10 @@ inst  ::= print:i TK_SEP {: RESULT = i; :}
 	| TK_SEP {: RESULT = ""; :}
 	;
 print ::= TK_PRINT expr:e
-        {:
-	    String comment = make_comm("print...");
-	    RESULT = comment + e + "\tOUT\n";
-	:}
-	;
-expr ::= TK_ICNST:i {: RESULT = "\tPUSH\t" + i + "\n"; :}
-	;
+  {:  String comment = make_comm("print...");
+	    RESULT = comment + e + "\tOUT\n"; :};
+
+plus ::= expr:e1 PLUS expr:e2
+  {: RESULT = e1 + e2 ; :};
+
+expr ::= TK_ICNST:i {: RESULT = "\tPUSH\t" + i + "\n"; :};
