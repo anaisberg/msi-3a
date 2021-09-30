@@ -1,0 +1,49 @@
+// $Id: calcul.jlex 505 2017-09-25 12:44:47Z coelho $
+import java_cup.runtime.Symbol;
+import java.io.*;
+%%
+%class Lexer
+%line
+%column
+%cup
+%{
+  /** fonction de test du lexer. */
+  static public void main(String[] args) throws Exception {
+    Lexer lexer = new Lexer(new InputStreamReader(System.in));
+    while (true) {
+      Symbol s = lexer.next_token();
+      System.out.println(s);
+    }
+  }
+%}
+%%
+[0-9]+(\.[0-9]+)?	{ return new Symbol(sym.TK_VAL, new Double(yytext())); }
+"+"	{ return new Symbol(sym.TK_PLUS); }
+"-"	{ return new Symbol(sym.TK_MOINS); }
+"*"	{ return new Symbol(sym.TK_FOIS); }
+"/"	{ return new Symbol(sym.TK_DIVISE); }
+"("	{ return new Symbol(sym.TK_LEFTPAR); }
+")"	{ return new Symbol(sym.TK_RIGHTPAR); }
+"sin" { return new Symbol(sym.TK_SIN); }
+"cos" { return new Symbol(sym.TK_COS); }
+"tan" { return new Symbol(sym.TK_TAN); }
+"sqrt" { return new Symbol(sym.TK_SQRT); }
+"log" { return new Symbol(sym.TK_LOG); }
+"^" { return new Symbol(sym.TK_POW); }
+"pi" { return new Symbol(sym.TK_PI); }
+"e" { return new Symbol(sym.TK_E); }
+"true" { return new Symbol(sym.TK_TRUE); }
+"false" { return new Symbol(sym.TK_FALSE); }
+"et" { return new Symbol(sym.TK_ET); }
+"ou" { return new Symbol(sym.TK_OU); }
+"<" { return new Symbol(sym.TK_STRICT_INF); }
+">" { return new Symbol(sym.TK_STRICT_SUP); }
+"non" { return new Symbol(sym.TK_NON); }
+"quit" { return new Symbol(sym.TK_STOP);  }
+"=" { return new Symbol(sym.TK_ASSIGN); }
+[a-z|A-Z]+ { return new Symbol(sym.TK_VAR, yytext()); }
+(\n|\r|\r\n)	{ return new Symbol(sym.TK_DONE); }
+[\ \t\f] { /* ignore espaces et assimiles. */ }
+.	{ System.err.println("unexpected char '" + yytext() +
+			     "' line " + yyline);
+	  return new Symbol(sym.error); }
